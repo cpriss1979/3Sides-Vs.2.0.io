@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="style.css"/>
+
+  <title>Support People</title>
+  <style>
+  .three-d-title {
+    font-size: 2.2rem;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 2px 2px rgba(0, 0, 0, 0.2);
+    color: var(--text-color) !important;
+  }
+
+  .button-black {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #000;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    transition: background-color 0.3s, transform 0.2s;
+    text-align: center;
+  }
+
+  .button-black:hover {
+    background-color: #222;
+    transform: scale(1.03);
+  }
+
+  .button-black:active {
+    transform: scale(0.98);
+  }
+
+  .delete-button-inline {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: red;
+    margin-left: 1rem;
+  }
+
+  #supportForm input[type="text"] {
+    display: block;
+    margin: 0.5rem auto;
+        padding: 10px;
+    font-size: 1rem;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    box-sizing: border-box;
+  }
+
+#savedSupport {
+  margin: 0;
+  padding: 0;
+    list-style-position: outside;
+}
+
+#savedSupport li {
+  font-size: 1.31rem;
+  color: black;
+  margin-left: 1.5rem;
+  margin-bottom: 0.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  line-height: 1.3;
+}
+
+.support-clean {
+  /* REMOVE all: unset (that kills bullets!) */
+  list-style: disc;
+}
+
+.delete-button-inline {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: red;
+  margin-left: 1rem;
+}
+   
+ul#savedSupport {
+  list-style-position: outside;
+  padding-left: 4.2rem;
+  padding-right: 4.2rem;
+  margin: 0;
+}
+
+ul#savedSupport li {
+  list-style: disc;
+  background: white;
+  padding: 0.4rem 0.6rem;
+  margin: 0.4rem 0;
+  border-radius: 0.6rem;
+  font-size: 1rem;
+  line-height: 1.2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 100%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.04);
+}
+
+</style>
+
+</head>
+<body>
+  <div class="container">
+    <br><br>
+    <h1 class="three-d-title">My Support</h1>
+    <p style="text-align: center; padding: 0rem 3rem; margin-bottom: 2rem;">
+These are the people I trust and can reach out to when I need help, comfort, or grounding.</p>
+
+    <form id="supportForm">
+      <input type="text" id="name" placeholder="Name" required />
+      <input type="text" id="relationship" placeholder="Relationship" required />
+      <input type="text" id="phone" placeholder="Phone #" required />
+
+      <div class="button-row">
+        <button type="submit" class="button-black">📎 Save</button>
+        <button type="button" id="printSupportButton" class="button-black">🖸️ Print</button>
+      </div>
+    </form>
+
+    <br><br><br>
+    <p style="text-align: center; font-size: 1.5rem;">📋 My Saved Support List</p>
+    <ul id="savedSupport"></ul>
+  </div>
+  <a href="wellness.html" class="backToApp">← Back</a>
+
+  <footer class="bottom-nav">
+    <a href="index.html" class="nav-icon">🏠<span>Home</span></a>
+    <a href="toolkit-hub.html" class="nav-icon">🧰<span>Toolkit</span></a>
+    <a href="wellness.html" class="nav-icon">💖<span>Wellness</span></a>
+    <a href="pet.html" class="nav-icon">🐾<span>Pet</span></a>
+    <a href="important-numbers.html" class="nav-icon">🆘<span>Help</span></a>
+  </footer>
+
+
+  <script>
+  window.onload = function () {
+    const savedTheme = localStorage.getItem('userTheme');
+    if (savedTheme) setTheme(savedTheme);
+    displaySupport();
+
+    const printBtn = document.getElementById("printSupportButton");
+    if (printBtn) {
+      printBtn.addEventListener("click", printSupportList);
+    }
+
+    const form = document.getElementById("supportForm");
+    if (form) {
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        saveSupport();
+      });
+    }
+
+    document.addEventListener("click", enableSound, { once: true });
+    document.addEventListener("touchstart", enableSound, { once: true });
+  };
+
+  function saveSupport() {
+    const name = document.getElementById("name").value.trim();
+    const relationship = document.getElementById("relationship").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    if (!name && !relationship && !phone) return;
+
+    const supportList = JSON.parse(localStorage.getItem("supportPeople")) || [];
+    supportList.push({ name, relationship, phone });
+    localStorage.setItem("supportPeople", JSON.stringify(supportList));
+
+    document.getElementById("name").value = "";
+    document.getElementById("relationship").value = "";
+    document.getElementById("phone").value = "";
+    displaySupport();
+  }
+
+  function deleteSupport(index) {
+    const supportList = JSON.parse(localStorage.getItem("supportPeople")) || [];
+    supportList.splice(index, 1);
+    localStorage.setItem("supportPeople", JSON.stringify(supportList));
+    displaySupport();
+  }
+
+  function displaySupport() {
+  const list = JSON.parse(localStorage.getItem("supportPeople")) || [];
+  const ul = document.getElementById("savedSupport");
+  ul.innerHTML = "";
+
+  list.forEach((person, index) => {
+    const li = document.createElement("li");
+li.className = "support-clean";
+    li.textContent = ` ${person.name} (${person.relationship}) ${person.phone}`;
+
+    const button = document.createElement("button");
+    button.textContent = "❌";
+    button.className = "delete-button-inline";
+    button.onclick = () => deleteSupport(index);
+
+    li.appendChild(button);
+    ul.appendChild(li);
+  });
+}
+
+  function printSupportList() {
+    window.print();
+  }
+
+  const allThemes = [
+    'theme-blue', 'theme-green', 'theme-pink', 'theme-original',
+    'theme-pinklight', 'theme-purple', 'theme-greenmed',
+    'theme-pinkmed', 'theme-darkblue', 'theme-darkgreen', 'theme-darkrose'
+  ];
+
+  function setTheme(theme) {
+    allThemes.forEach(t => {
+      document.body.classList.remove(t);
+      document.documentElement.classList.remove(t);
+    });
+    const themeClass = `theme-${theme}`;
+    document.body.classList.add(themeClass);
+    document.documentElement.classList.add(themeClass);
+    localStorage.setItem('userTheme', theme);
+  }
+
+  function enableSound() {}
+</script>
+
+</body>
+</html>

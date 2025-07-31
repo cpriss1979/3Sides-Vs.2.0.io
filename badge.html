@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Badge Wall</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Theme support (optional) -->
+  <script src="auth.js"></script>
+  <script src="script.js" defer></script>
+
+  <!-- 🌈 CSS Styling -->
+  <style>
+        body {
+      font-family: 'Quicksand', sans-serif;
+      margin: 0;
+      padding: 2rem;
+      background-color: #fef9ff;
+    }
+
+    h1 {
+      text-align: center;
+      color: #b04bb3;
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+    }
+    .badge-wall {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding: 1rem;
+    }
+  
+    .badge {
+      text-align: center;
+      width: 100px;
+    }
+  
+    .badge img {
+      width: 80px;
+      height: 80px;
+      filter: grayscale(100%) opacity(50%);
+      transition: all 0.3s ease-in-out;
+    }
+  
+    .badges.unlocked img {
+      filter: none;
+      opacity: 1;
+    }
+
+.badge span {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #333;
+}
+    </style>
+
+
+<!-- 🔖 Badge Wall HTML Structure -->
+<div class="badge-wall">
+  <div class="badge" data-badge="login">
+    <img src="badges/login.png" alt="First Login Badge">
+    <span>First Login</span>
+  </div>
+
+  <div class="badge" data-badge="feelgood1">
+    <img src="badges/feelgood1.png" alt="First Feel-Good Idea">
+    <span>1 Feel-Good Idea</span>
+  </div>
+
+  <div class="badge" data-badge="feelgood5">
+    <img src="badges/feelgood5.png" alt="5 Feel-Good Ideas">
+    <span>5 Feel-Good Ideas</span>
+  </div>
+
+  <!-- Add more badges as needed -->
+</div>
+
+<!-- 🧠 JavaScript Badge Logic -->
+<script>
+  // 🔐 Require login
+  const user = JSON.parse(localStorage.getItem("currentUser"));
+  if (!user) {
+    alert("Please log in to view your badge wall.");
+    location.href = "login.html";
+  }
+
+  const userKey = `data_${user.username}`;
+  let userData = JSON.parse(localStorage.getItem(userKey)) || {};
+
+  // ✅ Ensure userData has a badges array
+  if (!Array.isArray(userData.badges)) {
+    userData.badges = [];
+  }
+
+  // ✅ Render earned badges
+  document.querySelectorAll(".badge").forEach(badge => {
+    const id = badge.dataset.badge;
+    if (userData.badges.includes(id)) {
+      badge.classList.add("unlocked");
+    }
+  });
+
+  function unlockBadge(badgeId) {
+      const user = JSON.parse(localStorage.getItem("currentUser"));
+      if (!user) {
+        alert("User not found. Please log in again.");
+        location.href = "login.html";
+        return;
+      }
+
+      const badgeKey = `${user.username}_badges`;
+      const badges = JSON.parse(localStorage.getItem(badgeKey) || "[]");
+
+      if (!badges.includes(badgeId)) {
+        badges.push(badgeId);
+        localStorage.setItem(badgeKey, JSON.stringify(badges));
+
+        const badgeElement = document.querySelector(`[data-badge='${badgeId}']`);
+        if (badgeElement) {
+          badgeElement.classList.add("unlocked");
+        }
+      }
+    }
+
+
+  // ✅ Optional: show a message or animate a newly unlocked badge
+  function celebrateBadge(badgeId, message) {
+    unlockBadge(badgeId);
+    alert(`🏅 ${message}`);
+  }
+
+  // Example: celebrateBadge("journalFirst", "You earned the 'First Journal' badge!");
+</script>
+
+</body>
+
+</html>

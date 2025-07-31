@@ -1,0 +1,361 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Theme Shop</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      min-height: 100vh;
+      overflow-x: hidden;
+      overflow-y: auto;
+      scroll-behavior: smooth;
+    }
+
+    .theme-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 2rem;
+      padding: 1rem;
+      /* ← This adds mobile padding */
+      max-width: 1000px;
+      margin: auto;
+      box-sizing: border-box;
+    }
+
+    .theme-gallery {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      /* 2 per row */
+      gap: 0.5rem;
+      /* tight spacing between cards */
+      padding: 0;
+      width: 100vw;
+      /* force full viewport width */
+      box-sizing: border-box;
+    }
+
+
+    .theme-gallery {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      padding: 0 0.5rem;
+      /* ← this adds space ONLY to the left/right */
+      width: 100vw;
+      box-sizing: border-box;
+    }
+
+
+    .theme-card {
+      height: 420px;
+      /* ← Bigger vertical space */
+      background: rgb(250, 230, 250) !important;
+      border-radius: 1.5rem;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      font-size: 1.8rem !important;
+      /* ← Bigger text */
+      line-height: 5;
+      box-sizing: border-box;
+      transition: transform 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 100%;
+      max-width: unset;
+      /* ← remove max-width limit */
+      padding: 2.5rem;
+      border-bottom: 2px solid #eee;
+    }
+
+    .theme-card:hover {
+      transform: scale(1.03);
+    }
+
+    .theme-card h3 {
+      font-size: 2.5rem;
+      color: #444;
+    }
+
+    .theme-gallery {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2.5rem;
+      padding: 0 3rem;
+      /* ← keep this one */
+      width: 100vw;
+      box-sizing: border-box;
+    }
+
+
+    .theme-card button {
+      background-color: #b04bb3;
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      font-size: 1.4rem;
+      border-radius: 2rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .theme-card button:hover {
+      background-color: #983d9d;
+    }
+
+    /* 📱 Mobile View */
+    @media (max-width: 600px) {
+      .theme-gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .theme-card {
+        height: auto;
+        /* Let it shrink naturally */
+        padding: 1.5rem;
+        font-size: 1.3rem;
+      }
+
+      .theme-card h3 {
+        font-size: 1.4rem;
+      }
+
+      .theme-card button {
+        font-size: 1.2rem;
+        padding: 0.8rem 1.5rem;
+      }
+    }
+
+    .theme-size {
+      font-size: 35px;
+    }
+
+    /* -------------------- Back to App ---------------- */
+    .backToApp {
+      display: inline-block;
+      margin: 8rem auto;
+      padding: 20px 40px;
+      background-color: #000 !important;
+      /* Black background */
+      color: #fff !important;
+      /* White text */
+      font-size: 2.8rem;
+      /* Cleaned and corrected */
+      font-weight: 1000;
+      border: 2px solid white;
+      border-radius: 16px;
+      /* exaggerate the curve */
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+      /* Soft white-ish glow */
+      transition: background-color 0.3s, transform 0.2s;
+      text-align: center;
+    }
+
+    .backToApp:hover {
+      background-color: #222 !important;
+      /* Darker hover */
+      color: #fff !important;
+      transform: scale(1.03);
+    }
+
+    .backToApp:active {
+      transform: scale(0.98);
+    }
+
+    /* ---------------- Affermations -------------- */
+    .affirmation-popup {
+      position: fixed;
+      bottom: 85%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #ffeef8;
+      color: #4a004e;
+      padding: 1.5rem 2rem;
+      /* ⬅️ more padding helps text breathe */
+      font-size: 2.6rem;
+      font-weight: bold;
+      border-radius: 1rem;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      max-width: 90vw;
+      /* ⬅️ slightly wider for safer wrapping */
+      width: max-content;
+      /* ⬅️ works better than fit-content for wrapped text */
+      min-width: 250px;
+      /* ⬅️ prevents weird shrinking on short affirmations */
+      word-wrap: break-word;
+      /* ⬅️ forces long words to wrap */
+      white-space: normal;
+      text-align: center;
+      line-height: 1.5;
+      z-index: 9999;
+      transition: opacity 1s ease;
+      opacity: 1;
+    }
+
+
+  </style>
+
+</head>
+
+<body>
+  <div class="theme-size">
+    <h1>🎨 Theme Shop</h1>
+    <div id="authControls" style="text-align:center; margin-top:1rem;"></div>
+  </div>
+  <div class="theme-gallery">
+    <!-- Yellow -->
+    <div class="theme-card">
+      <h3>Bingo Yellow</h3><button onclick="setTheme('bingo')">Apply</button>
+    </div>
+    <div class="theme-card">
+      <h3>Bumblebee Yellow</h3><button onclick="setTheme('bumblebee')">Apply</button>
+    </div>
+    <div class="theme-card">
+      <h3>Stella Peach</h3><button onclick="setTheme('peach')">Apply</button>
+    </div>
+
+    <!-- Red -->
+    <div class="theme-card">
+      <h3>Santafe Red</h3><button onclick="setTheme('arcade')">Apply</button>
+    </div>
+
+    <!-- Blues -->
+    <div class="theme-card">
+      <h3>Dolphin Blue</h3><button onclick="setTheme('dolphin')">Apply</button>
+    </div>
+    <div class="theme-card">
+      <h3>Moonlight Blue</h3><button onclick="setTheme('moonlight')">Apply</button>
+    </div>
+    <div class="theme-card">
+      <h3>Brady Blue</h3><button onclick="setTheme('brady')">Apply</button>
+    </div>
+
+    <!-- Greens -->
+    <div class="theme-card">
+      <h3>JR Green</h3><button onclick="setTheme('green')">Apply</button>
+    </div>
+    <div class="theme-card">
+      <h3>Monkey Green</h3><button onclick="setTheme('greenmed')">Apply</button>
+    </div>
+    <div class="theme-card">
+      <h3>Golf Green</h3><button onclick="setTheme('darkgreen')">Apply</button>
+    </div>
+
+    <!-- Pinks & Roses -->
+    <div class="theme-card">
+      <h3>Strawberry Pink</h3><button onclick="setTheme('pinklight')">Apply</button>
+    </div>
+    <div class="theme-card">
+      <h3>Shortcake Pink</h3><button onclick="setTheme('shortcake')">Apply</button>
+    </div>
+    <div class="theme-card">
+      <h3>Prissy Pink</h3><button onclick="setTheme('pinkmed')">Apply</button>
+    </div>
+    <div class="theme-card">
+      <h3>Date Rose</h3><button onclick="setTheme('darkrose')">Apply</button>
+    </div>
+
+    <!-- Purples -->
+    <div class="theme-card">
+      <h3>Sunburst Purple</h3><button onclick="setTheme('purple')">Apply</button>
+    </div>
+
+    <!-- Brown -->
+    <div class="theme-card">
+      <h3>Bubby-Bear Brown</h3><button onclick="setTheme('bubby-bear')">Apply</button>
+    </div>
+
+    <!-- Original -->
+    <div class="theme-card">
+      <h3>Original Theme</h3><button onclick="setTheme('original')">Reset</button>
+    </div>
+  </div>
+
+  <a href="index.html" class="backToApp">← Back</a>
+  <p onclick="location.href='about.html'" style="
+       font-size: 40px;
+       color: black;
+       font-weight: bold;
+       text-decoration: none; /* removes underline */
+       cursor: pointer;
+       border: 4px solid black;
+       background-color: white;
+       padding: 1rem;
+       display: inline-block;
+       text-align: center;
+       margin: 0 auto; /* centers block element */
+       width: fit-content;">
+    Each theme is inspired by someone I love.<br>
+    Click Here to learn more
+  </p>
+
+<br><br><br>
+
+  <script>
+    // Get the current user from localStorage
+    function getCurrentUser() {
+      return JSON.parse(localStorage.getItem("currentUser"));
+    }
+
+    // Returns a localStorage key prefixed with username
+    function getKey(key) {
+      const user = getCurrentUser();
+      if (!user) return null;
+      return `${user.username}_${key}`;
+    }
+
+    // Check if user is logged in, redirect if not
+    const user = getCurrentUser();
+    if (!user) {
+      alert("🚫 Please log in to access themes.");
+      window.location.href = "login.html";
+    }
+
+    // Theme setup (multi-user)
+    const allThemes = [
+      'theme-bingo', 'theme-brady', 'theme-peach', 'theme-moonlight', 'theme-shortcake',
+      'theme-bubby-bear', 'theme-bumblebee', 'theme-dolphin', 'theme-arcade', 'theme-green',
+      'theme-pink', 'theme-original', 'theme-pinklight', 'theme-purple', 'theme-greenmed',
+      'theme-pinkmed', 'theme-darkblue', 'theme-darkgreen', 'theme-darkrose'
+    ];
+
+    function setTheme(theme) {
+      const user = getCurrentUser();
+      if (!user) return;
+
+      // Save theme with username prefix
+      localStorage.setItem(getKey("theme"), theme);
+
+      allThemes.forEach(t => {
+        document.body.classList.remove(t);
+        document.documentElement.classList.remove(t);
+      });
+
+      const themeClass = `theme-${theme}`;
+      document.body.classList.add(themeClass);
+      document.documentElement.classList.add(themeClass);
+    }
+
+    // Load theme on page load
+    window.addEventListener("DOMContentLoaded", () => {
+      const userTheme = localStorage.getItem(getKey("theme"));
+      if (userTheme) {
+        setTheme(userTheme);
+      }
+    });
+  </script>
+
+</body>
+
+</html>

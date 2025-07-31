@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+
+<style>
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background:  rgb(3, 3, 82);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    h1 {
+  color: #b04bb3;
+  margin-bottom: 1.5rem; /* bump this up to add space */
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+    input {
+      width: 100%;
+      padding: 0.8rem;
+      margin: 0.5rem 0;
+      border: 1px solid #ccc;
+      border-radius: 1rem;
+      font-size: 1rem;
+    }
+
+    button:hover {
+      background-color: #983d9d;
+    }
+
+    p {
+      margin-top: 1.2rem;
+      font-size: 0.95rem;
+    }
+
+    a {
+      color: #b04bb3;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+  body {
+    padding: 0 1rem;
+    box-sizing: border-box;
+  }
+}
+
+    button {
+      width: 100%;
+      padding: 0.8rem;
+      background-color: #b04bb3;
+      color: white;
+      border: none;
+      border-radius: .5rem !important;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: background 0.3s ease;
+    }
+
+
+button {
+  width: 100px; /* or however wide you want */
+  background-color: #b04bb3;
+  color: white;
+  margin: 0 auto;
+  display: block;
+  padding: .5rem;
+  font-size: 1.2rem;
+  border-radius: .5rem;
+  touch-action: manipulation;
+  margin-top: .5rem; /* bump this up to add space */
+}
+
+p {
+  color: white;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100% !important;
+  max-width: 250px !important;
+margin: 0 auto -.5rem;
+padding: 0.6rem !important;
+  display: block !important;
+  font-size: 1rem !important;
+  border: none !important;
+  border-radius: 0.5rem !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+}
+  </style>
+</head>
+<body>
+  <div class="login-container">
+
+  <h1>Login</h1>
+  <form id="loginForm">
+    <input type="text" id="loginUsername" placeholder="Username" required><br>
+    <input type="password" id="loginPassword" placeholder="Password" required><br>
+    <button type="submit">Login</button>
+  </form>
+  </div>
+  <br>
+  <p>Need an account? <a href="register.html">Register here</a></p>
+
+    <a href="index.html" class="backToApp">← Back to App</a>
+
+  <script src="auth.js"></script>
+ 
+  
+</body>
+</html>

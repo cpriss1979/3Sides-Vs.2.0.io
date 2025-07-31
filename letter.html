@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Letter to Future Me</title>
+  <script src="auth.js"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+  <style>
+  .button-row {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.button-row button {
+  flex: 1;
+  max-width: 45%;
+}
+
+    html, body {
+  scroll-behavior: smooth;
+  overscroll-behavior-y: contain; /* or 'none' if needed */
+}
+
+.three-d-title {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 2.2rem;
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 2px 2px rgba(0, 0, 0, 0.2);
+  color: white !important;
+}
+
+  #letterDisplay {
+  text-align: left;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+    :root {
+      --bg-color: #ffffff;
+      --text-color: rgb(3, 3, 82);
+      --accent-color: #87ceeb;
+    }
+
+    html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* ✅ prevents horizontal scroll */
+  box-sizing: border-box;
+}
+
+    html, body {
+  margin: 10;
+  padding: 0;
+  min-height: 100vh;
+  box-sizing: border-box;
+  background-color: rgb(3, 3, 82); /* ✅ keep only the blue */
+  color: white;
+    width: 100%;
+  font-family: 'Open Sans', sans-serif;
+  padding-bottom: 4rem; /* for footer space */
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+   .dreamy-box {
+  width: 100% !important;
+  padding: 2rem 2rem !important;
+  background-color: transparent;
+  box-shadow: none;
+  border-radius: 0;
+  border: none;
+  margin: 0;
+}
+
+    textarea {
+      width: 95%;
+      min-height: 100px;
+      font-size: 1rem;
+      padding: 0.5rem;
+      
+    }
+
+    .icon-button {
+background-color: rgb(221, 151, 221);
+  color: black !important;
+  font-size: 1rem;
+  font-weight: 600;
+  border: 1px solid white;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+  transition: background-color 0.3s, transform 0.2s;
+  text-align: center;
+    margin: 0.3rem;
+    margin-top: 1rem;
+
+}
+
+.icon-button:hover {
+background-color: rgb(91, 5, 91);
+  color: black !important;
+  transform: scale(1.03);
+}
+
+.icon-button:active {
+  transform: scale(0.98);
+}
+
+    .nav-icon {
+      text-decoration: none;
+      color: rgba(69, 111, 179, 0.903);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 1.2rem;
+    }
+
+/* -------------------- NAV ICON CONSISTENCY -------------------- */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #fafafa;
+  border-top: 1px solid rgba(69, 111, 179, 0.903);
+  display: flex;
+  justify-content: space-around;
+  padding: 0.8rem 0;
+  z-index: 1000;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.bottom-nav {
+  overflow-x: auto; /* makes sure it scrolls rather than overflows */
+  max-width: 100vw;
+  box-sizing: border-box;
+}
+
+.nav-icon {
+  text-decoration: none;
+  color: rgba(69, 111, 179, 0.903);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  transition: color 0.3s ease;
+}
+
+.nav-icon span {
+  font-size: 0.75rem;
+  margin-top: 0.2rem;
+  color: rgba(69, 111, 179, 0.903);
+}
+
+.nav-icon:hover,
+.nav-icon:focus {
+  color: #72aadf;
+  outline: none;
+}
+
+textarea, button, input, .icon-button {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* -------------------------Theme Customization ------------------ */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #333333;
+  --accent-color: #87ceeb; /* default blue */
+}
+
+body {
+  background-color: rgb(3, 3, 82); /* full page blue */
+  color: white;
+}
+
+.button, .popup {
+  background-color: var(--accent-color);
+  color: var(--text-color);
+}
+
+.theme-gallery {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 1rem;
+}
+
+.theme-card {
+  border: 2px solid #ccc;
+  padding: 1rem;
+  width: 200px;
+  border-radius: 10px;
+  background-color: #f7f7f7;
+  text-align: center;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+.theme-card.locked {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.theme-original {
+  --bg-color: #ffffff;
+  --text-color: purple;
+  --accent-color: #6095aa;
+}
+
+.theme-pinklight {
+  --bg-color: #e59fb6;
+  --text-color: #880e4f;
+  --accent-color: #f48fb1;
+}
+
+.theme-purple {
+  --bg-color: #a836b9;
+  --text-color: #4a148c;
+  --accent-color: #ce93d8;
+}
+
+.theme-greenmed {
+  --bg-color: #6fca8c;
+  --text-color: #004d40;
+  --accent-color: #26a69a;
+}
+
+.theme-pinkmed {
+  --bg-color: #e03fa8;       /* rich berry-pink backdrop */
+  --text-color: #621547;     /* soft pastel pink for contrast */
+  --accent-color: #d81b60;   /* bold raspberry pink for buttons */
+}
+
+.theme-darkblue {
+  --bg-color: #1e2a38;      /* deep navy */
+  --text-color: #1e2a38;     /* soft white */
+  --accent-color: #3f51b5;   /* indigo */
+}
+
+.theme-darkgreen {
+  --bg-color: #1c611c;       /* earthy dark green */
+  --text-color: #1c611c;     /* light pastel green */
+  --accent-color: #81c784;   /* medium green */
+}
+
+.theme-darkrose {
+  --bg-color: #4b0e1e;       /* deep romantic rose */
+  --text-color: #823549;     /* soft light rose */
+  --accent-color: #c2185b;   /* vibrant lipstick pink */
+}
+
+.theme-blue {
+  --bg-color: #aad7f6;
+  --text-color: #0d47a1;
+  --accent-color: #42a5f5;
+}
+
+.theme-green {
+  --bg-color: #b9dbbc;
+  --text-color: #1b5e20;
+  --accent-color: #66bb6a;
+}
+
+.theme-bingo {
+  --bg-color: #e6f640;
+  --text-color: #767931;
+  --accent-color: #0a0a0a;
+}
+
+.theme-bumblebee {
+  --bg-color: #d0c65d;
+  --text-color: #3e3e3e;
+  --accent-color: #f9c80e;
+}
+
+.theme-dolphin {
+  --bg-color: #1e557d;         /* deep ocean blue */
+  --text-color: #cc6ca0;       /* soft, warm pink – still readable */
+  --accent-color: #73c2fb;     /* playful dolphin splash blue */
+}
+
+.theme-bubby-bear {
+  --bg-color: #6e4f34;     /* warm, soft teddy brown */
+  --text-color: #f9e8d9;   /* creamy vanilla */
+  --accent-color: #a77b4f; /* honey caramel highlight */
+}
+
+.theme-shortcake {
+  --bg-color: #fddde6;      /* soft strawberry milk pink */
+  --text-color: #a84863;    /* berry rose */
+  --accent-color: #ffc1cc;  /* frosted pink topping */
+}
+
+.theme-arcade {
+  --bg-color: #2e0505;       /* dark arcade background */
+  --text-color: #c14242;     /* neon red-pink glow */
+  --accent-color: #ff3131;   /* bold joystick red */
+}
+
+.theme-peach {
+  --bg-color: #F9C5A0;      /* warm peachy background */
+  --text-color: #5A3E36;    /* cocoa brown for beautiful contrast */
+  --accent-color: #FFE5B4;  /* soft peachy cream for highlights */
+}
+
+.theme-brady {
+  --bg-color: #B0C4DE;
+  --text-color: #2F4F4F;
+  --accent-color: #E6EEF5;
+}
+
+
+.theme-moonlight {
+  --bg-color: #082042;       /* midnight sky */
+  --text-color: #64a4e4;     /* pale moon */
+  --accent-color: #9dcfff;   /* shimmering accent */
+}
+
+/* -------------------- Back to App ---------------- */
+.backToApp {
+  display: inline-block;
+  margin: 2rem auto;
+  padding: 10px 20px;
+  background-color: #000 !important;  /* Black background */
+  color: #fff !important;             /* White text */
+  font-size: 1rem;
+  font-weight: 600;
+  border: 1px solid white;
+  border-radius: 8px;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2); /* Soft white-ish glow */
+  transition: background-color 0.3s, transform 0.2s;
+  text-align: center;
+}
+
+.backToApp:hover {
+  background-color: #222 !important;  /* Darker hover */
+  color: #fff !important;
+  transform: scale(1.03);
+}
+
+.backToApp:active {
+  transform: scale(0.98);
+}
+
+.center-back-button {
+  text-align: center;
+}
+
+#summary {
+      animation: fadeInLetter 1.5s ease-in-out;
+      white-space: pre-wrap;
+      font-size: 1.2rem;
+      color: black;
+      font-family: 'Patrick Hand', cursive;
+    }
+
+    .-align {
+  text-align: left;
+  padding-left: 1rem;
+}
+
+/* -------------------- Hidden Back Button Styling (if JS toggled) ---------------- */
+#backButton {
+  display: none;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+#backButton.show {
+  display: inline-block;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.three-d-title {
+  font-size: 2.5rem;
+  font-family: 'Patrick Hand', cursive;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: rgb(40, 130, 180);
+  letter-spacing: 1.5px;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 0 1rem;
+    box-sizing: border-box;
+  }
+}
+
+@media (max-width: 600px) {
+  .page-wrapper {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .dreamy-box {
+    border-radius: 0; /* Optional: removes rounded edges for more flush look */
+  }
+}
+
+@media (max-width: 600px) {
+  textarea {
+    width: 98%;
+  }
+}
+
+main {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+label[for="letterInput"] {
+  display: block;
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+details summary {
+  text-align: center;
+  list-style: none; /* removes the default triangle */
+  cursor: pointer;
+  font-weight: bold;
+}
+
+details summary::marker {
+  display: none;
+}
+
+#letterDisplayContainer h3 {
+  text-align: center;
+  font-size: 1.3rem;
+  margin-top: 2rem;
+}
+
+.button-row {
+  display: flex;
+  justify-content: center;
+  gap: 1rem; /* space between buttons */
+  flex-wrap: wrap; /* optional: wraps if screen is narrow */
+  margin-top: 1rem;
+}
+
+@media (max-width: 500px) {
+  .button-row {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* --------------------- Mobile-safe media query -------------------- */
+@media (max-width: 600px) {
+  .image-text-box {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    border-radius: 0;
+    padding: 1rem 0.75rem;
+    text-align: left; /* optional: center if you prefer */
+  }
+
+  .hero-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .hero-caption,
+  .image-text-box p {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+}
+
+/* --------------------- Mobile-safe media query -------------------- */
+@media (max-width: 600px) {
+  .image-text-box {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    border-radius: 0;
+    padding: 1rem 0.75rem;
+    text-align: left; /* optional: center if you prefer */
+  }
+
+  .hero-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .hero-caption,
+  .image-text-box p {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+}
+
+.button-row {
+  display: flex !important;
+  justify-content: center !important;
+  gap: 1rem !important;
+  margin-top: 1rem !important;
+  flex-wrap: wrap !important;
+}
+
+.button-row .icon-button {
+  flex: 1 !important;
+  max-width: 130px !important;
+  padding: 0.5rem 1rem !important;
+  font-size: 1rem !important;
+  border: none !important;
+  border-radius: 1rem !important;
+  background-color: var(--accent-color) !important;
+  color: var(--text-color) !important;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1) !important;
+  transition: transform 0.2s ease !important;
+}
+
+.button-row .icon-button:hover {
+  transform: scale(1.05) !important;
+  background-color: #00000022 !important;
+}
+
+
+/* Container Around Chart and Button */
+.feel-good-container {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <div class="dreamy-box">
+    <h1 class="three-d-title">💌 Letter to Future Me</h1>
+
+      <h2></h2>
+      <form id="letterForm">
+        <label for="letterInput">Write something comforting or motivational for your future self:</label><br><br>
+        <textarea id="letterInput" placeholder="Type your message..."></textarea>
+        
+        </form>
+        <div class="feel-good-container">
+
+  <button type="button" class="icon-button" onclick="saveLetter()">💾 Save</button>
+  <button type="button" class="icon-button" onclick="deleteLetter()">🗑️ Delete</button>
+</div>
+<br>
+<details>
+        <summary>🌈 Need inspiration? Try these prompts</summary>
+        <br>
+        <ul class="left-align">
+  <li>✨ What has helped you feel stable lately?</li>
+  <li>💪 What are you proud of yourself for?</li>
+  <li>🛠️ What coping tools do you want to remember?</li>
+  <li>💖 What would you want someone you love to hear if they felt this way?</li>
+  <li>🫶 What would future you want to remember on a hard day?</li>
+</ul>
+      </details>
+    
+<br>
+      <div id="letterDisplayContainer" style="display:none; margin-top:2rem;">
+        <h3>📝 Your Message to Yourself</h3>
+        <p id="letterDisplay"></p>
+      </div>
+    </div>
+  </div>
+<div class="center-back-button">
+  <a href="wellness.html" class="backToApp">← Back</a>
+</div>
+
+  <footer class="bottom-nav">
+    <a href="index.html" class="nav-icon">🏠<span>Home</span></a>
+    <a href="toolkit-hub.html" class="nav-icon">🧰<span>Toolkit</span></a>
+    <a href="wellness.html" class="nav-icon">💖<span>Wellness</span></a>
+    <a href="pet.html" class="nav-icon">🐾<span>Pet</span></a>
+    <a href="important-numbers.html" class="nav-icon">🆘<span>Help</span></a>
+  </footer>
+
+  <script>
+    function saveLetter() {
+      const letter = document.getElementById("letterInput").value.trim();
+      if (!letter) {
+        alert("Please write a letter before saving.");
+        return;
+      }
+      localStorage.setItem("letterToFutureMe", letter);
+      document.getElementById("letterDisplay").textContent = letter;
+      document.getElementById("letterDisplayContainer").style.display = "block";
+      document.getElementById("letterInput").value = "";
+    }
+
+    function deleteLetter() {
+      localStorage.removeItem("letterToFutureMe");
+      document.getElementById("letterDisplay").textContent = "";
+      document.getElementById("letterDisplayContainer").style.display = "none";
+    }
+
+    const allThemes = [
+      'theme-blue', 'theme-green', 'theme-pink',
+      'theme-original', 'theme-pinklight', 'theme-purple',
+      'theme-greenmed', 'theme-pinkmed',
+      'theme-darkblue', 'theme-darkgreen', 'theme-darkrose'
+    ];
+
+    function setTheme(theme) {
+      allThemes.forEach(t => {
+        document.body.classList.remove(t);
+        document.documentElement.classList.remove(t);
+      });
+      document.body.classList.add(`theme-${theme}`);
+      document.documentElement.classList.add(`theme-${theme}`);
+      localStorage.setItem('userTheme', theme);
+    }
+
+    window.onload = function () {
+      const savedLetter = localStorage.getItem("letterToFutureMe");
+      if (savedLetter) {
+        document.getElementById("letterDisplay").textContent = savedLetter;
+        document.getElementById("letterDisplayContainer").style.display = "block";
+      }
+
+      const savedTheme = localStorage.getItem('userTheme');
+      if (savedTheme) {
+        setTheme(savedTheme.replace("theme-", ""));
+      }
+    }
+  </script>
+</body>
+</html>

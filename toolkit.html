@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Feel-Good Toolkit</title>
+  <style>
+    html,
+    body {
+      scroll-behavior: smooth;
+      overscroll-behavior-y: contain;
+      /* or 'none' if needed */
+    }
+
+    .page-wrapper {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      background-color: var(--bg-color);
+      /* this keeps your theme consistent */
+    }
+
+    .container {
+      flex-grow: 1;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background-color: var(--bg-color);
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      display: block;
+      box-sizing: border-box;
+      font-family: 'Open Sans', sans-serif;
+      color: black;
+      overflow-x: hidden;
+    }
+
+    .toolkit-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: rgb(250, 230, 250) !important;
+      color: rgb(40, 130, 180);
+      border-left: 8px solid rgb(40, 130, 180);
+      border-radius: 1rem;
+      margin-bottom: 0.75rem;
+      padding: .75rem .75rem;
+      /* smaller top/bottom and left/right padding */
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
+      transition: background-color 0.3s ease;
+    }
+
+    .toolkit-item:hover {
+      background-color: rgb(221, 151, 221) !important;
+    }
+
+    .icon-button:hover {
+      background-color: rgb(91, 5, 91) !important;
+    }
+
+    .toolkit-item span {
+      flex-grow: 1;
+      font-size: 1rem;
+      color: black;
+      text-align: left;
+    }
+
+    /* Feel-Good Chart Table */
+    .feel-good-chart {
+      margin: 2rem auto;
+      width: 100%;
+      max-width: 600px;
+      border-collapse: collapse;
+      /* heart icon, backrgound text box color */
+      background-color: rgb(221, 151, 221) !important;
+      box-shadow: 0 4px 10px rgba(83, 27, 27, 0.08);
+    }
+
+    .feel-good-chart td {
+      padding: 1rem;
+      font-size: 1.1rem;
+      /* text color inside feel-good heart, toolkit.html */
+      color: black;
+      text-align: center;
+      /* border under feel good ideas, located when opening heart */
+      border-bottom: .75px solid black;
+    }
+
+    .feel-good-chart tr:hover td {
+      background-color: rgba(212, 89, 212, 0.597);
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    /* Dropdown Box */
+    .feel-good-content {
+      display: none;
+      /* border around entire feel-good example container */
+      border: 2px solid black;
+      border-radius: 2.5rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+      background-color: rgb(3, 3, 82);
+    }
+
+    /* Container Around Chart and Button */
+    .feel-good-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      margin: 1rem auto;
+      width: 100%;
+      max-width: 600px;
+      box-sizing: border-box;
+    }
+
+    /* Toolkit Custom Entries List */
+    .toolkit-list {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0 2rem 0;
+    }
+
+    /* Heart Circle Button */
+    .dropdown-icon-btn {
+      width: 70px;
+      height: 70px;
+      background-color: rgb(3, 3, 82);
+      border: 5px solid rgb(173, 245, 247);
+      color: white;
+      font-size: 1.6rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    /* Wrapper for Toolkit Page */
+    .page-wrapper {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      margin-top: 1rem;
+      color: black;
+    }
+
+
+    .dreamy-box {
+      position: relative;
+      overflow: hidden;
+      border-radius: 1.5rem;
+      padding: 2rem;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      margin: 2rem auto;
+      text-align: center;
+      border-top: 3px solid rgba(40, 130, 180, 0.2);
+      border-bottom: 3px solid rgba(40, 130, 180, 0.2);
+      width: 100%;
+      max-width: 600px;
+      box-sizing: border-box;
+      z-index: 0;
+      /* 💫 Sparkle background */
+    }
+
+    .dreamy-box>*:not(.sparkle-layer),
+    .dreamy-box .sparkle {
+      position: relative;
+      z-index: 2;
+    }
+
+    .dreamy-box h2 {
+      font-family: 'Open Sans', sans-serif;
+      color: #2988a7;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .dreamy-box label {
+      display: block;
+      margin-bottom: 1.8rem;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 1rem;
+    }
+
+    .dreamy-box textarea {
+      width: 100%;
+      padding: 1rem;
+      border: 2px solid #90caf9;
+      border-radius: 1rem;
+      resize: vertical;
+      background: #f0fdfb;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 1rem;
+      box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.05);
+    }
+
+
+    /* dreamy background on toolkit.html behind entries and text */
+    .dreamy-box {
+      background: rgb(3, 3, 82);
+      border-radius: 1.5rem;
+      padding: 0.5rem;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      margin: 3rem 0;
+      text-align: center;
+      border-top: 3px solid rgba(40, 130, 180, 0.2);
+      border-bottom: 3px solid rgba(40, 130, 180, 0.2);
+    }
+
+    .dreamy-box h2 {
+      font-family: 'Patrick Hand';
+      color: white;
+      font-size: 1.6rem;
+      margin-bottom: 2.45rem;
+    }
+
+    :root {
+      --bg-color: #ffffff;
+      --text-color: rgb(3, 3, 82);
+      --accent-color: #87ceeb;
+      /* default blue */
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+    }
+
+    .button,
+    .popup {
+      background-color: var(--accent-color);
+      color: var(--text-color);
+    }
+
+    .theme-blue {
+      --bg-color: #aad7f6;
+      --text-color: #0d47a1;
+      --accent-color: #42a5f5;
+    }
+
+    .theme-green {
+      --bg-color: #b9dbbc;
+      --text-color: #1b5e20;
+      --accent-color: #66bb6a;
+    }
+
+    .theme-pink {
+      --bg-color: #ebbad6;
+      --text-color: #880e4f;
+      --accent-color: #f06292;
+    }
+
+    .theme-gallery {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      padding: 1rem;
+    }
+
+    .theme-card {
+      border: 2px solid #ccc;
+      padding: 1rem;
+      width: 200px;
+      border-radius: 10px;
+      background-color: #f7f7f7;
+      text-align: center;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .theme-card.locked {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .theme-original {
+      --bg-color: #ffffff;
+      --text-color: purple;
+      --accent-color: #6095aa;
+    }
+
+    .theme-pinklight {
+      --bg-color: #e59fb6;
+      --text-color: #880e4f;
+      --accent-color: #f48fb1;
+    }
+
+    .theme-purple {
+      --bg-color: #a836b9;
+      --text-color: #4a148c;
+      --accent-color: #ce93d8;
+    }
+
+    .theme-greenmed {
+      --bg-color: #6fca8c;
+      --text-color: #004d40;
+      --accent-color: #26a69a;
+    }
+
+    .theme-pinkmed {
+      --bg-color: #e03fa8;
+      /* rich berry-pink backdrop */
+      --text-color: #621547;
+      /* soft pastel pink for contrast */
+      --accent-color: #d81b60;
+      /* bold raspberry pink for buttons */
+    }
+
+    .theme-darkblue {
+      --bg-color: #1e2a38;
+      /* deep navy */
+      --text-color: #3f8cb5;
+      /* soft white */
+      --accent-color: #3f51b5;
+      /* indigo */
+    }
+
+    .theme-darkgreen {
+      --bg-color: #1c611c;
+      /* earthy dark green */
+      --text-color: #43a043;
+      /* light pastel green */
+      --accent-color: #81c784;
+      /* medium green */
+    }
+
+    .theme-darkrose {
+      --bg-color: #4b0e1e;
+      /* deep romantic rose */
+      --text-color: #ad3f63;
+      /* soft light rose */
+      --accent-color: #c2185b;
+      /* vibrant lipstick pink */
+    }
+
+    .theme-bingo {
+      --bg-color: #e6f640;
+      --text-color: #767931;
+      --accent-color: #0a0a0a;
+    }
+
+    .theme-bumblebee {
+      --bg-color: #d0c65d;
+      --text-color: #3e3e3e;
+      --accent-color: #f9c80e;
+    }
+
+    .theme-dolphin {
+      --bg-color: #1e557d;
+      /* deep ocean blue */
+      --text-color: #cc6ca0;
+      /* soft, warm pink – still readable */
+      --accent-color: #73c2fb;
+      /* playful dolphin splash blue */
+    }
+
+    .theme-bubby-bear {
+      --bg-color: #6e4f34;
+      /* warm, soft teddy brown */
+      --text-color: #f9e8d9;
+      /* creamy vanilla */
+      --accent-color: #a77b4f;
+      /* honey caramel highlight */
+    }
+
+    .theme-shortcake {
+      --bg-color: #fddde6;
+      /* soft strawberry milk pink */
+      --text-color: #a84863;
+      /* berry rose */
+      --accent-color: #ffc1cc;
+      /* frosted pink topping */
+    }
+
+    .theme-arcade {
+      --bg-color: #2e0505;
+      /* dark arcade background */
+      --text-color: #c14242;
+      /* neon red-pink glow */
+      --accent-color: #ff3131;
+      /* bold joystick red */
+    }
+
+    .theme-peach {
+      --bg-color: #F9C5A0;
+      /* warm peachy background */
+      --text-color: #5A3E36;
+      /* cocoa brown for beautiful contrast */
+      --accent-color: #FFE5B4;
+      /* soft peachy cream for highlights */
+    }
+
+    .theme-brady {
+      --bg-color: #B0C4DE;
+      --text-color: #2F4F4F;
+      --accent-color: #E6EEF5;
+    }
+
+    .theme-moonlight {
+      --bg-color: #082042;
+      /* midnight sky */
+      --text-color: #64a4e4;
+      /* pale moon */
+      --accent-color: #9dcfff;
+      /* shimmering accent */
+    }
+
+    .top-journal-section,
+    .gradient-section-box,
+    .bottom-wrapper,
+    .full-journal-box {
+      background: var(--bg-color);
+      /* or a themed gradient if you're fancy */
+      color: var(--text-color);
+    }
+
+    .theme-colored-text {
+      color: var(--text-color) !important;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    #authControls {
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    #authControls p {
+      margin: 0;
+      padding: 0;
+    }
+
+    .page-header {
+      margin-top: 0;
+      padding-top: 0;
+    }
+
+    body {
+      margin-top: 0;
+    }
+
+    /* -------------------- Back to App ---------------- */
+
+    .backToApp {
+      display: block;
+      margin: 4rem auto 6rem auto;
+      /* pushes it away from content & footer */
+      padding: 12px 22px !important;
+      background-color: white !important;
+      color: #fff !important;
+      font-size: 1rem;
+      font-weight: bold;
+      border: 1px solid white;
+      border-radius: 8px;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .backToApp:hover {
+      background-color: #222 !important;
+      transform: scale(1.03);
+    }
+
+    .backToApp:active {
+      transform: scale(0.98);
+    }
+
+    /* -------------------- Hidden Back Button Styling (if JS toggled) ---------------- */
+    #backButton {
+      display: none;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+
+    #backButton.show {
+      display: inline-block;
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* -------------------- FORM ELEMENTS -------------------- */
+    input[type="text"],
+    textarea {
+      width: 95%;
+      padding: 1rem;
+      font-size: 1rem;
+      border-radius: 1rem;
+      border: 1px solid rgba(69, 111, 179, 0.903);
+      background-color: #f1f8e9;
+      resize: vertical;
+      margin-top: 0.5rem;
+    }
+
+    /* -------------------- BUTTONS -------------------- */
+    .delete-button {
+      background-color: rgb(226, 198, 198) !important;
+    }
+
+    .delete-button:hover {
+      background-color: rgb(179, 164, 164) !important;
+    }
+
+    .icon-button {
+      background-color: rgb(221, 151, 221) !important;
+      color: black !important;
+      border: 1px solid black !important;
+      padding: 15px !important;
+      font-size: 1rem;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 6px rgba(255, 255, 255, 0.2);
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .icon-button:hover {
+      background-color: #222;
+      transform: scale(1.03);
+    }
+
+    .button,
+    .toolkit-entry button {
+      background-color: #2988a7;
+      color: white;
+      border-radius: .85rem;
+      font-size: 1rem;
+      padding: 1rem 2rem;
+      cursor: pointer;
+      border: none;
+      display: block;
+      margin-left: 0 !important;
+      margin-top: 1rem;
+      text-align: left;
+      transition: background-color 0.3s ease;
+    }
+
+    .button:hover,
+    .toolkit-entry button:hover {
+      background-color: #66bb6a;
+      transform: scale(1.05);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .button-row {
+      display: flex;
+      flex-direction: row;
+      /* Put buttons side-by-side */
+      justify-content: center;
+      /* Center horizontally */
+      align-items: center;
+      /* Center vertically just in case */
+      gap: 1.5rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+      /* Nice for small screens */
+    }
+
+    .button-row button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: auto;
+    }
+
+    .dropdown-btn {
+      background-color: rgb(59, 162, 197);
+      border: 5px solid rgb(200, 245, 245);
+      color: white;
+      font-size: 1.1rem;
+      padding: 0.8rem 1.5rem;
+      border-radius: 50rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .dropdown-icon-btn:hover {
+      background-color: rgba(19, 19, 108, 0.812);
+    }
+
+    /* Navigation */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #fafafa;
+      border-top: 1px solid rgba(69, 111, 179, 0.903);
+      display: flex;
+      justify-content: space-around;
+      padding: 0.8rem 0;
+      z-index: 1000;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .nav-icon {
+      text-decoration: none;
+      color: rgba(69, 111, 179, 0.903);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 1.2rem;
+    }
+
+    .nav-icon span {
+      font-size: 0.75rem;
+      margin-top: 0.2rem;
+    }
+
+    .nav-icon:hover {
+      color: #72aadf;
+    }
+
+    /* -------------------- TYPOGRAPHY -------------------- */
+    .three-d-title {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 2.2rem;
+      font-weight: bold;
+      text-align: center;
+      text-shadow: 2px 2px rgba(0, 0, 0, 0.2);
+      color: var(--text-color) !important;
+      /* ← THIS is what you want */
+    }
+
+    h1.three-d-title {
+      font-size: 2.5rem;
+      font-family: 'Open Sans', sans-serif;
+      font-weight: bold;
+      color: rgb(40, 130, 180);
+      letter-spacing: 1.5px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    h2 {
+      color: black;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 1.8rem;
+      margin-top: 2rem;
+    }
+
+    h3 {
+      text-align: center;
+      font-family: 'Open Sans', sans-serif;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+      /* tighten the gap under "Ideas" */
+      font-size: 1.75rem;
+      font-weight: normal;
+      color: black;
+    }
+
+    .three-d-title-two {
+      font-size: 3rem;
+      /* or 2.5rem if you want it just slightly smaller */
+      font-family: 'Open Sans', sans-serif;
+      text-align: center;
+      margin-bottom: 2rem;
+      color: rgb(40, 130, 180);
+      letter-spacing: 1.5px;
+      font-weight: bold;
+      padding-left: 2rem;
+      padding-right: 2rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+    }
+
+    .wellness-page h3 {
+      font-size: 1.1rem;
+      /* or try 1rem if you want it even smaller */
+      color: black;
+      font-weight: normal;
+      margin-top: 1.5rem;
+      text-align: left;
+    }
+
+    p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+      text-align: left;
+    }
+
+    .button-black {
+      display: inline-block;
+      padding: 10px 20px !important;
+      background-color: #000 !important;
+      color: #fff !important;
+      font-size: 1.25rem !important;
+      font-weight: bold !important;
+      border: 1px solid white;
+      border-radius: 8px !important;
+      text-decoration: none !important;
+      cursor: pointer !important;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2) !important;
+      transition: background-color 0.3s, transform 0.2s !important;
+      text-align: center !important;
+    }
+
+    .button-black:hover {
+      background-color: #222 !important;
+      transform: scale(1.03) !important;
+    }
+
+    .button-black:active {
+      transform: scale(0.98) !important;
+    }
+
+    .button:hover {
+      background-color: rgb(91, 5, 91) !important;
+      color: white !important;
+      transform: scale(1.03);
+    }
+
+    /* ---------- button purple ----------- */
+    .button-purple {
+      display: inline-block;
+      padding: 10px 15px !important;
+      background-color: rgb(221, 151, 221) !important;
+      color: black !important;
+      font-size: 1rem;
+      font-weight: bold;
+      border: 1px solid black !important;
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+      transition: background-color 0.3s, transform 0.2s;
+      text-align: center;
+    }
+
+    .button-purple:hover {
+      background-color: #983d9d !important;
+      transform: scale(1.03) !important;
+    }
+
+    .toolkit-entry button:not(.button-purple) {
+      background-color: #2988a7;
+      color: white;
+    }
+
+    #newIdea {
+      background-color: rgb(250, 230, 250) !important;
+      color: #4a154b;
+      /* text color */
+      padding: 0.75rem;
+      font-size: 1rem;
+      border-radius: 1rem;
+      border-color: black !important;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    /* Hover effect */
+    .toolkitList:hover {
+      background-color: black !important;
+      /* 💗 light blush-pink */
+      transform: scale(1.02);
+      /* slight grow effect */
+    }
+
+    #toolkitList {
+      width: 92%;
+      max-width: 600px;
+      margin: 1rem auto 2rem auto;
+      padding: 0 1rem;
+    }
+
+    /* --------------------- Mobile-safe media query -------------------- */
+    @media (max-width: 600px) {
+      .image-text-box {
+        width: 100%;
+        max-width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        border-radius: 0;
+        padding: 1rem 0.75rem;
+        text-align: left;
+        /* optional: center if you prefer */
+      }
+
+      .hero-image {
+        width: 100%;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+      }
+
+      .hero-caption,
+      .image-text-box p {
+        font-size: 1rem;
+        line-height: 1.4;
+      }
+    }
+
+    .container {
+      padding: 1rem;
+      margin: 0 auto;
+      width: 95vw;
+      max-width: 600px;
+      box-sizing: border-box;
+    }
+
+    body {
+      overflow-x: hidden;
+    }
+  </style>
+</head>
+
+<body id="pageBody">
+
+  <div class="page-wrapper">
+    <div class="container">
+      <h1 class="three-d-title">My Feel-Good Toolkit</h1>
+
+      <div class="feel-good-container">
+        <h3 style="color: var(--text-color); font-size: 2.0rem;">Ideas</h3>
+        <button class="dropdown-icon-btn" onclick="toggleFeelGood()">💖</button>
+        <div id="feelGoodList" class="feel-good-content">
+          <table class="feel-good-chart">
+            <tbody>
+              <tr>
+                <td onclick="addIdeaFromList(event)">Taking a walk outside</td>
+              </tr>
+              <tr>
+                <td onclick="addIdeaFromList(event)">Listening to music</td>
+              </tr>
+              <tr>
+                <td onclick="addIdeaFromList(event)">A hot cup of cocoa in your favorite mug</td>
+              </tr>
+              <tr>
+                <td onclick="addIdeaFromList(event)">Talk to a friend</td>
+              </tr>
+              <tr>
+                <td onclick="addIdeaFromList(event)">Journal your thoughts</td>
+              </tr>
+              <tr>
+                <td onclick="addIdeaFromList(event)">Cuddle with a soft stuffed animal</td>
+              </tr>
+              <tr>
+                <td onclick="addIdeaFromList(event)">Watch a comforting movie or show</td>
+              </tr>
+              <tr>
+                <td onclick="addIdeaFromList(event)">Take a bubble bath</td>
+              </tr>
+              <tr>
+                <td onclick="addIdeaFromList(event)">Light a scented candle</td>
+              </tr>
+              <tr>
+                <td onclick="addIdeaFromList(event)">Do deep breathing exercises</td>
+              </tr>
+              <tr>
+                <td onclick="addIdeaFromList(event)">Stretch your body</td>
+              </tr>
+              <tr>
+                <td onclick="addIdeaFromList(event)">Color in an adult coloring book</td>
+              </tr>
+              <tr>
+                <td onclick="addIdeaFromList(event)">Read a favorite book</td>
+              </tr>
+              <tr>
+                <td onclick="addIdeaFromList(event)">Make a gratitude list</td>
+              </tr>
+              <tr>
+                <td onclick="addIdeaFromList(event)">Drink a glass of cold water</td>
+              </tr>
+              <tr>
+                <td onclick="addIdeaFromList(event)">Put on comfy clothes or pajamas</td>
+              </tr>
+              <tr>
+                <td onclick="addIdeaFromList(event)">Dance around your room</td>
+              </tr>
+              <tr>
+                <td onclick="addIdeaFromList(event)">Look at old happy photos</td>
+              </tr>
+              <tr>
+                <td onclick="addIdeaFromList(event)">Make a playlist of feel-good songs</td>
+              </tr>
+              <tr>
+                <td onclick="addIdeaFromList(event)">Use a fidget toy or stress ball</td>
+              </tr>
+              <tr>
+                <td onclick="addIdeaFromList(event)">Step outside and feel the sun</td>
+              </tr>
+              <tr>
+                <td onclick="addIdeaFromList(event)">Write a letter to your future self</td>
+              </tr>
+              <tr>
+                <td onclick="addIdeaFromList(event)">Do a skincare routine</td>
+              </tr>
+              <tr>
+                <td onclick="addIdeaFromList(event)">Pet an animal (even a neighbor’s dog!)</td>
+              </tr>
+              <tr>
+                <td onclick="addIdeaFromList(event)">Listen to a positive podcast</td>
+              </tr>
+              <tr>
+                <td onclick="addIdeaFromList(event)">Do a small craft or creative project</td>
+              </tr>
+              <tr>
+                <td onclick="addIdeaFromList(event)">Watch funny videos or memes</td>
+              </tr>
+              <tr>
+                <td onclick="addIdeaFromList(event)">Organize a tiny space (like a drawer)</td>
+              </tr>
+              <tr>
+                <td onclick="addIdeaFromList(event)">Open a window and breathe deeply</td>
+              </tr>
+              <tr>
+                <td onclick="addIdeaFromList(event)">Wrap yourself in a weighted blanket</td>
+              </tr>
+              <tr>
+                <td onclick="addIdeaFromList(event)">Say affirmations out loud</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="toolkit-entry">
+        <input type="text" id="newIdea" placeholder="Add your own feel-good idea..." />
+        <br>
+        <button class="button-purple" onclick="addIdea()">➕ Add</button>
+      </div>
+
+      <div class="dreamy-box">
+        <h2 style="text-align:center;">💕 Your own comforting, grounding, or joyful ideas. 💕</h2>
+        <div id="toolkitList" class="toolkit-list"></div>
+      </div>
+    </div>
+  </div>
+  <div style="text-align:center; margin-bottom: 8rem;">
+    <a href="toolkit-hub.html" class="button-black">← Back</a>
+  </div>
+
+  <footer class="bottom-nav">
+    <a href="index.html" class="nav-icon">🏠<span>Home</span></a>
+    <a href="toolkit-hub.html" class="nav-icon">🧰<span>Toolkit</span></a>
+    <a href="wellness.html" class="nav-icon">💖<span>Wellness</span></a>
+    <a href="pet.html" class="nav-icon">🐾<span>Pet</span></a>
+    <a href="important-numbers.html" class="nav-icon">🆘<span>Help</span></a>
+  </footer>
+
+
+  <script>
+    // ✅ Get current user
+    function getCurrentUser() {
+      try {
+        return JSON.parse(localStorage.getItem("currentUser"));
+      } catch (e) {
+        console.error("❌ Failed to parse currentUser:", e);
+        return null;
+      }
+    }
+
+    // ✅ Get user-specific key
+    function getKey(base) {
+      const user = getCurrentUser();
+      return user ? `${user.username}_${base}` : base;
+    }
+
+    // ✅ Get user-specific data
+    function getUserData() {
+      const user = getCurrentUser();
+      if (!user) return null;
+      return JSON.parse(localStorage.getItem(`data_${user.username}`) || "{}");
+    }
+
+    function saveUserData(data) {
+      const user = getCurrentUser();
+      if (!user) return;
+      localStorage.setItem(`data_${user.username}`, JSON.stringify(data));
+    }
+
+    // ✅ Apply theme from saved key (like journal.html does)
+    function setTheme(theme) {
+      const user = getCurrentUser();
+      if (!user) return;
+
+      localStorage.setItem(getKey("theme"), theme);
+
+      const allThemes = [
+        'theme-bingo', 'theme-brady', 'theme-peach', 'theme-moonlight', 'theme-shortcake',
+        'theme-bubby-bear', 'theme-bumblebee', 'theme-dolphin', 'theme-arcade', 'theme-green',
+        'theme-pink', 'theme-original', 'theme-pinklight', 'theme-purple', 'theme-greenmed',
+        'theme-pinkmed', 'theme-darkblue', 'theme-darkgreen', 'theme-darkrose'
+      ];
+
+      allThemes.forEach(t => {
+        document.body.classList.remove(t);
+        document.documentElement.classList.remove(t);
+      });
+
+      const themeClass = `theme-${theme}`;
+      document.body.classList.add(themeClass);
+      document.documentElement.classList.add(themeClass);
+    }
+
+    // ✅ Toolkit logic (per user)
+    let toolkit = [];
+
+    function loadToolkit() {
+      const stored = localStorage.getItem(getKey("feelGoodToolkit"));
+      toolkit = stored ? JSON.parse(stored) : [];
+    }
+
+    function saveToolkit() {
+      localStorage.setItem(getKey("feelGoodToolkit"), JSON.stringify(toolkit));
+    }
+
+    function renderToolkit() {
+      loadToolkit();
+      const listDiv = document.getElementById("toolkitList");
+      listDiv.innerHTML = "";
+
+      const ul = document.createElement("ul");
+      ul.classList.add("toolkit-list");
+      listDiv.appendChild(ul);
+
+      toolkit.forEach((idea, index) => {
+        const li = document.createElement("li");
+        li.classList.add("toolkit-item");
+        li.innerHTML = `
+            <span>${idea}</span>
+            <button onclick="deleteIdea(${index})" class="delete-button">❌</button>
+          `;
+        ul.appendChild(li);
+      });
+    }
+
+    function addIdea() {
+      const input = document.getElementById("newIdea");
+      const idea = input.value.trim();
+      if (idea === "") return;
+
+      if (!toolkit.includes(idea)) {
+        toolkit.push(idea);
+        saveToolkit();
+        renderToolkit();
+      }
+      input.value = "";
+    }
+
+    function addIdeaFromList(event) {
+      const ideaText = event.target.textContent.trim();
+      if (!toolkit.includes(ideaText)) {
+        toolkit.push(ideaText);
+        saveToolkit();
+        renderToolkit();
+      }
+      document.getElementById("feelGoodList").style.display = "none";
+    }
+
+    function deleteIdea(index) {
+      toolkit.splice(index, 1);
+      saveToolkit();
+      renderToolkit();
+    }
+
+    function toggleFeelGood() {
+      const list = document.getElementById("feelGoodList");
+      list.style.display = list.style.display === "none" || list.style.display === "" ? "block" : "none";
+    }
+
+    // ✅ On page load
+    document.addEventListener("DOMContentLoaded", () => {
+      const user = getCurrentUser();
+      console.log("👤 Current user:", user);
+
+      const userTheme = localStorage.getItem(getKey("theme"));
+      if (userTheme) {
+        setTheme(userTheme); // ✅ Works like journal.html now
+      }
+
+      renderToolkit(); // ✅ Load saved ideas
+    });
+  </script>
+    
+</body>
+
+</html>

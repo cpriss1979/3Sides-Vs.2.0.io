@@ -1,0 +1,530 @@
+<!-- This is the everyday wellness page that has the wellness form -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="auth.js"></script>
+
+  <title>Everyday Wellness</title>
+  <style>
+    body {
+  margin: 0;
+  padding: 0;
+}
+
+    .three-d-title {
+  font-size: 2.2rem;
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 2px 2px rgba(0, 0, 0, 0.2);
+  color: var(--text-color) !important; /* ← THIS is what you want */
+}
+
+    h3::after {
+      content: "";
+      display: block;
+      width: 60%;
+      margin: 0.5rem auto 0 auto;
+      border-bottom: 3px solid rgb(40, 130, 180);
+    }
+
+    strong {
+      color: black !important;
+    }
+
+    .button-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+    }
+
+    .icon-button {
+      background-color: black;
+      color: black !important;
+  border: 1px solid white;
+      padding: 5px 10px;
+      font-size: 1rem;
+      border-radius: 10px;
+      margin: 0 10px;
+      cursor: pointer;
+        font-weight: bold;
+    }
+
+    .three-d-title {
+      text-align: center;
+      font-size: 2.5rem;
+      color: #0d47a1;
+      text-shadow: 2px 2px 4px #aaa;
+    }
+
+    textarea {
+      width: 100%;
+        box-sizing: border-box; /* ← prevents overflows! */
+      min-height: 100px;
+      margin: auto;
+      display: block;
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid #5f2d5e;
+      border-radius: 5px;
+      background-color: rgb(250, 230, 250) !important;
+    }
+
+    label {
+      display: block;
+      text-align: center;
+      font-weight: bold;
+
+    }
+
+    /* Print Styling */
+    @media print {
+      body {
+        background: white !important;
+        color: black !important;
+        font-family: Georgia, serif;
+        padding: 0;
+        margin: 0;
+      }
+
+   .gradient-section-box2 {
+  background-color: rgb(250, 230, 250); /* Soft lavender purple */
+  padding: 2rem 2rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  border-top: 5px solid #ffffffcc;
+  border-bottom: 5px solid #ffffffcc;
+  box-sizing: border-box;
+}
+
+.container.wellness-wrapper {
+  box-sizing: border-box; /* ← add this */
+}
+
+/* everyday wellness container */
+.container.wellness-wrapper {
+  background: white;
+  border-top: 5px solid #ffffffcc;
+  border-bottom: 5px solid #ffffffcc;
+  padding: 1rem 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  max-width: 650px;
+  margin: 0 auto; /* ← centers it again */
+  border-radius: 1rem; /* optional for a softer look */
+}
+
+      textarea {
+        display: none !important;
+      }
+
+      .print-only {
+        white-space: pre-wrap;
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+        padding: 0.5rem 0;
+      }
+
+      .icon-button,
+      .button-row,
+      .backToApp,
+      nav,
+      footer {
+        display: none !important;
+      }
+
+      h1, h3 {
+        text-align: center;
+        color: black !important;
+      }
+
+      label {
+        text-align: left;
+        margin: 1rem 0 0.5rem;
+      }
+    }
+
+    .gradient-section-box2 {
+  color: black !important;
+}
+
+.gradient-section-box2 {
+  background-color: rgb(3, 3, 82);
+  padding: 2rem 0rem; /* 🪄 no side padding */
+  border-radius: 0; /* flatten the box feel */
+  box-shadow: none; /* remove the card-style shadow */
+  border-top: 5px solid #ffffffcc;
+  border-bottom: 5px solid #ffffffcc;
+  box-sizing: border-box;
+  width: 100vw; /* 🧠 full viewport width */
+  margin: 0; /* no centering */
+  color: white !important;
+}
+
+h3 {
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+  margin-top: 1rem;
+  font-size: 1.75rem;
+  font-weight: normal;
+  color: white !important;
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 0 1rem;
+    box-sizing: border-box;
+  }
+}
+
+/* --------------------- Mobile-safe media query -------------------- */
+@media (max-width: 600px) {
+  .image-text-box {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    border-radius: 0;
+    padding: 1rem 0.75rem;
+    text-align: left; /* optional: center if you prefer */
+  }
+
+  .hero-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .hero-caption,
+  .image-text-box p {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+}
+
+/* Container Around Chart and Button */
+.feel-good-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 2rem auto;
+  width: 100%;
+  max-width: 600px;
+  box-sizing: border-box;
+}
+
+.feel-good-container h3 {
+  margin-bottom: 0.3rem;
+}
+
+.icon-button {
+background-color: rgb(221, 151, 221);
+  color: black !important;
+  font-size: 1rem;
+  font-weight: 600;
+  border: 1px solid white;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+  transition: background-color 0.3s, transform 0.2s;
+  text-align: center;
+    margin: .5rem;
+}
+
+
+
+
+/* -------------------- NAV ICON CONSISTENCY -------------------- */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #fafafa;
+  border-top: 1px solid rgba(69, 111, 179, 0.903);
+  display: flex;
+  justify-content: space-around;
+  padding: 0.8rem 0;
+  z-index: 1000;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.bottom-nav {
+  overflow-x: auto; /* makes sure it scrolls rather than overflows */
+  max-width: 100vw;
+  box-sizing: border-box;
+}
+
+.nav-icon {
+  text-decoration: none;
+  color: rgba(69, 111, 179, 0.903);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  transition: color 0.3s ease;
+}
+
+.nav-icon span {
+  font-size: 0.75rem;
+  margin-top: 0.2rem;
+  color: rgba(69, 111, 179, 0.903);
+}
+
+.nav-icon:hover,
+.nav-icon:focus {
+  color: #72aadf;
+  outline: none;
+}
+
+textarea, button, input, .icon-button {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 5rem; /* height of the nav */
+}
+
+    html, body {
+  scroll-behavior: smooth;
+  overscroll-behavior-y: contain; /* or 'none' if needed */
+}
+
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* ✅ prevents horizontal scroll */
+  box-sizing: border-box;
+}
+
+    html, body {
+  margin: 10;
+  padding: 0;
+  min-height: 100vh;
+  box-sizing: border-box;
+    width: 100%;
+  padding-bottom: 4rem; /* for footer space */
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+  </style>
+</head>
+
+<body>
+  <h1 class="three-d-title">My Mental Health Plan</h1>
+
+  <div class="gradient-section-box2">
+
+    <form id="wellnessForm">
+      <div class="container wellness-wrapper">
+        <h3>🌼 Everyday Wellness</h3><br>
+
+        <label for="wellnessLook">
+          When I’m at my best, here’s how I feel and show up in the world:<br><br>
+          <textarea id="wellnessLook" placeholder="Describe what you feel like when you're in a good place..."></textarea>
+        </label><br><br>
+
+        <label for="dailyHabits">
+          Gentle routines that help me stay well:<br><br>
+          <textarea id="dailyHabits" placeholder="List the daily habits, rituals, or actions that support your wellness..."></textarea>
+        </label><br><br>
+
+        <h3>🌀 When I Feel Off Balance</h3><br>
+
+        <label for="triggerList">
+          Things that tend to make life feel harder for me:<br><br>
+          <textarea id="triggerList" placeholder="What situations or stressors throw you off?"></textarea>
+        </label><br><br>
+
+        <label for="afterTriggered">
+          What helps me find my footing again:<br><br>
+          <textarea id="afterTriggered" placeholder="What grounds you or helps you feel safe again?"></textarea>
+        </label><br><br>
+
+        <h3>⚠️ Early Warning Signs</h3><br>
+
+        <label for="warningSigns">
+          How I know something might be shifting:<br><br>
+          <textarea id="warningSigns" placeholder="What are the first signs you're starting to feel off?"></textarea>
+        </label><br><br>
+
+        <h3>🛟 Support Plan</h3>
+
+        <label for="actionPlan">
+          Ways I can care for myself when I notice those signs:<br><br>
+          <textarea id="actionPlan" placeholder="Write down your go-to coping tools and healing steps."></textarea>
+        </label><br><br>
+
+        <label for="anotherAction">
+          How others can support me if I need help:<br><br>
+          <textarea id="anotherAction" placeholder="Be honest about what kind of support helps from others."></textarea>
+        </label>
+        <div class="feel-good-container">
+          <button type="button" class="icon-button" onclick="printPlan()">🖨️ Print</button>
+          <button type="button" class="icon-button" onclick="resetForm()">🗑️ Clear</button>
+        
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <a href="wellness.html" class="backToApp">← Back</a>
+
+
+    <footer class="bottom-nav">
+    <a href="index.html" class="nav-icon">🏠<span>Home</span></a>
+    <a href="toolkit-hub.html" class="nav-icon">🧰<span>Toolkit</span></a>
+    <a href="wellness.html" class="nav-icon">💖<span>Wellness</span></a>
+    <a href="pet.html" class="nav-icon">🐾<span>Pet</span></a>
+    <a href="important-numbers.html" class="nav-icon">🆘<span>Help</span></a>
+  </footer>
+
+  <script>
+    // ---------------------- USER AUTH UTILS ----------------------
+    function getCurrentUser() {
+      try {
+        return JSON.parse(localStorage.getItem("currentUser"));
+      } catch (e) {
+        console.error("❌ Error parsing currentUser");
+        return null;
+      }
+    }
+
+    function getKey(key) {
+      const user = getCurrentUser();
+      return user ? `${user.username}_${key}` : key;
+    }
+
+    // ---------------------- THEME SUPPORT ----------------------
+    const allThemes = [
+      'theme-blue', 'theme-green', 'theme-pink',
+      'theme-original', 'theme-pinklight', 'theme-purple',
+      'theme-greenmed', 'theme-pinkmed',
+      'theme-darkblue', 'theme-darkgreen', 'theme-darkrose'
+    ];
+
+    function setTheme(theme) {
+      const user = getCurrentUser();
+      if (!user) return;
+
+      localStorage.setItem(getKey("theme"), theme);
+
+      allThemes.forEach(t => {
+        document.documentElement.classList.remove(t);
+        document.body.classList.remove(t);
+      });
+
+      const themeClass = `theme-${theme}`;
+      document.documentElement.classList.add(themeClass);
+      document.body.classList.add(themeClass);
+    }
+
+    function applyUserTheme() {
+      const userTheme = localStorage.getItem(getKey("theme"));
+      if (userTheme) {
+        setTheme(userTheme);
+      }
+    }
+
+    // ---------------------- PLAN HANDLING ----------------------
+    function savePlan() {
+      const user = getCurrentUser();
+      if (!user) return;
+
+      const fields = ["wellnessLook", "dailyHabits", "triggerList", "afterTriggered", "warningSigns", "actionPlan", "anotherAction"];
+      const plan = {};
+
+      fields.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) plan[id] = el.value;
+      });
+
+      const data = JSON.parse(localStorage.getItem(getKey("data")) || "{}");
+      data.wellnessPlan = plan;
+      localStorage.setItem(getKey("data"), JSON.stringify(data));
+
+      alert("Your plan was saved!");
+    }
+
+    function resetForm() {
+      if (confirm("Are you sure you want to clear the form?")) {
+        const user = getCurrentUser();
+        if (!user) return;
+
+        document.getElementById("wellnessForm").reset();
+
+        const data = JSON.parse(localStorage.getItem(getKey("data")) || "{}");
+        delete data.wellnessPlan;
+        localStorage.setItem(getKey("data"), JSON.stringify(data));
+      }
+    }
+
+    // ---------------------- PRINT VIEW ----------------------
+    function preparePrint() {
+      const data = JSON.parse(localStorage.getItem(getKey("data")) || "{}");
+      const plan = data.wellnessPlan || {};
+
+      const fields = ["wellnessLook", "dailyHabits", "triggerList", "afterTriggered", "warningSigns", "actionPlan", "anotherAction"];
+      fields.forEach(id => {
+        const textarea = document.getElementById(id);
+        if (textarea) {
+          const value = plan[id] || textarea.value;
+          const p = document.createElement("p");
+          p.className = "print-only";
+          p.innerText = value;
+          textarea.parentNode.insertBefore(p, textarea.nextSibling);
+        }
+      });
+    }
+
+    function resetPrintView() {
+      document.querySelectorAll(".print-only").forEach(p => p.remove());
+    }
+
+    function printPlan() {
+      preparePrint();
+      window.print();
+      setTimeout(resetPrintView, 1000);
+    }
+
+    // ---------------------- PAGE LOAD ----------------------
+    document.addEventListener("DOMContentLoaded", () => {
+      const user = getCurrentUser();
+      if (!user) {
+        alert("Please log in to access your wellness plan.");
+        window.location.href = "login.html";
+        return;
+      }
+
+      applyUserTheme();
+
+      const data = JSON.parse(localStorage.getItem(getKey("data")) || "{}");
+      const savedPlan = data.wellnessPlan || {};
+
+      Object.keys(savedPlan).forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = savedPlan[id];
+      });
+    });
+  </script>
+    
+</body>
+</html>
