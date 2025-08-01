@@ -602,24 +602,6 @@ details summary::marker {
   </footer>
 
   <script>
-    function saveLetter() {
-      const letter = document.getElementById("letterInput").value.trim();
-      if (!letter) {
-        alert("Please write a letter before saving.");
-        return;
-      }
-      localStorage.setItem("letterToFutureMe", letter);
-      document.getElementById("letterDisplay").textContent = letter;
-      document.getElementById("letterDisplayContainer").style.display = "block";
-      document.getElementById("letterInput").value = "";
-    }
-
-    function deleteLetter() {
-      localStorage.removeItem("letterToFutureMe");
-      document.getElementById("letterDisplay").textContent = "";
-      document.getElementById("letterDisplayContainer").style.display = "none";
-    }
-
     const allThemes = [
       'theme-blue', 'theme-green', 'theme-pink',
       'theme-original', 'theme-pinklight', 'theme-purple',
@@ -627,28 +609,78 @@ details summary::marker {
       'theme-darkblue', 'theme-darkgreen', 'theme-darkrose'
     ];
 
+    // ✅ Get current user
+    function getCurrentUser() {
+      try {
+        return JSON.parse(localStorage.getItem("currentUser"));
+      } catch (e) {
+        console.error("❌ Failed to get current user:", e);
+        return null;
+      }
+    }
+
+    // ✅ Get per-user key
+    function getKey(baseKey) {
+      const user = getCurrentUser();
+      if (!user) return baseKey;
+      return `${baseKey}_${user.username}`;
+    }
+
+    // ✅ Apply user theme
     function setTheme(theme) {
       allThemes.forEach(t => {
         document.body.classList.remove(t);
         document.documentElement.classList.remove(t);
       });
-      document.body.classList.add(`theme-${theme}`);
-      document.documentElement.classList.add(`theme-${theme}`);
-      localStorage.setItem('userTheme', theme);
+      const themeClass = `theme-${theme}`;
+      document.body.classList.add(themeClass);
+      document.documentElement.classList.add(themeClass);
+
+      const themeKey = getKey('userTheme');
+      localStorage.setItem(themeKey, themeClass);
     }
 
+    // ✅ Save letter
+    function saveLetter() {
+      const letter = document.getElementById("letterInput").value.trim();
+      if (!letter) {
+        alert("Please write a letter before saving.");
+        return;
+      }
+      const letterKey = getKey("letterToFutureMe");
+      localStorage.setItem(letterKey, letter);
+
+      document.getElementById("letterDisplay").textContent = letter;
+      document.getElementById("letterDisplayContainer").style.display = "block";
+      document.getElementById("letterInput").value = "";
+    }
+
+    // ✅ Delete letter
+    function deleteLetter() {
+      const letterKey = getKey("letterToFutureMe");
+      localStorage.removeItem(letterKey);
+
+      document.getElementById("letterDisplay").textContent = "";
+      document.getElementById("letterDisplayContainer").style.display = "none";
+    }
+
+    // ✅ On load: apply theme and load letter
     window.onload = function () {
-      const savedLetter = localStorage.getItem("letterToFutureMe");
+      const letterKey = getKey("letterToFutureMe");
+      const savedLetter = localStorage.getItem(letterKey);
       if (savedLetter) {
         document.getElementById("letterDisplay").textContent = savedLetter;
         document.getElementById("letterDisplayContainer").style.display = "block";
       }
 
-      const savedTheme = localStorage.getItem('userTheme');
+      const themeKey = getKey("userTheme");
+      const savedTheme = localStorage.getItem(themeKey);
       if (savedTheme) {
-        setTheme(savedTheme.replace("theme-", ""));
+        const themeName = savedTheme.replace("theme-", "");
+        setTheme(themeName);
       }
     }
   </script>
+  
 </body>
 </html>
